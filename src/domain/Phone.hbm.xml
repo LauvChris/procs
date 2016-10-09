@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="domain">
+ 	<class name="PhoneNumber" table="phoneNumber_table">
+	  	<id name="id" type="long" column="ID" >
+	   		<generator class="increment"/>
+	  	</id>
+		<property name="phoneKind" column="phoneKind" type="string"/>
+		<property name="phoneNumber" column="phoneNumber" type="string"/>
+
+		<many-to-one name="idContact" class="Contact" column="ID_CONTACT" />
+	</class>
+</hibernate-mapping>

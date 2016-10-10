@@ -13,7 +13,7 @@ import domain.ContactDAO;
  */
 public class removeContact extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	String id;
+	String deletes[];
 	
        
     /**
@@ -38,10 +38,14 @@ public class removeContact extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		id = request.getParameter("c1");
-		System.out.println("L'element " + id + "a ete supprime");
-		ContactDAO contact = new ContactDAO();
-		contact.removeContact(id);
+	
+		deletes = request.getParameterValues("c1");
+		for(int i=0; i<deletes.length;i++){
+			System.out.println(deletes[i]);
+			ContactDAO contact = new ContactDAO();
+			contact.removeContact(deletes[i]);
+			System.out.println("L'element " + deletes[i] + "a ete supprime");
+		}
 		response.sendRedirect("displayContacts.jsp");
 	}
 

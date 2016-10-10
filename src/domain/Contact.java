@@ -10,11 +10,18 @@ public class Contact {
 	private String mail;
 	private Set<Group> groups = new HashSet<Group>();
 	private Set<PhoneNumber> phoneNumber = new HashSet<PhoneNumber>();
-	
+//	private long version;
 	
 	public Contact(){}
-
 	
+//	public long getVersion() {
+//		return version;
+//	}
+//
+//	public void setVersion(long version) {
+//		this.version = version;
+//	}
+
 	public long getId() {
 		return id;
 	}
@@ -22,7 +29,6 @@ public class Contact {
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public String getNom() {
 		return nom;
@@ -48,21 +54,17 @@ public class Contact {
 		this.mail = mail;
 	}
 
-
 	public Set<Group> getGroups() {
 		return groups;
 	}
-
 
 	public void setGroups(Set<Group> groups) {
 		this.groups = groups;
 	}
 
-
 	public Set<PhoneNumber> getPhoneNumber() {
 		return phoneNumber;
 	}
-
 
 	public void setPhoneNumber(Set<PhoneNumber> phoneNumber) {
 		this.phoneNumber = phoneNumber;

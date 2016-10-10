@@ -47,8 +47,9 @@ public class updateContact extends HttpServlet {
 		request.setAttribute("nom", nom);
 		request.setAttribute("prenom", prenom);
 		request.setAttribute("mail", mail);
-		
-		request.getRequestDispatcher("/updateContact.jsp").forward(request, response);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/updateContact.jsp") ;
+	     // redirection de la requête vers cette ressource
+	    requestDispatcher.forward(request, response) ;
 	}
 
 	/**
@@ -56,7 +57,7 @@ public class updateContact extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+//		doGet(request, response);
 		System.out.println("Je suis dans le doPost()\n");
 		id = request.getParameter("id");
 		nom = request.getParameter("nom");
@@ -64,7 +65,10 @@ public class updateContact extends HttpServlet {
 		mail = request.getParameter("mail");
 		System.out.println("id : " + id + "\nNom :" + nom + "\nPrenom : " + prenom + "\nMail : " + mail );
 		ContactDAO contact = new ContactDAO();
+
 		contact.updateContact(id, nom, prenom, mail);
+		request.getRequestDispatcher("displayContacts.jsp").forward(request, response);
+
 		
 	}
 

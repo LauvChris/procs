@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 public class ContactDAO {
+	List<Contact> contacts;
 	public void createContact(String nom, String prenom, String mail,String leGroupe)
 	{
 		System.out.println("J'ajoute un contact : " + nom + " " + prenom + " " + mail);
@@ -22,6 +23,7 @@ public class ContactDAO {
 		Group groupe = new Group();
 		groupe.setGroupName(leGroupe);
 		
+		try {
 		//Obtention d’une session
 		Session session =
 		HibernateUtil.getSessionFactory().getCurrentSession();
@@ -33,6 +35,11 @@ public class ContactDAO {
 		session.save(groupe);
 		//committer la transaction
 		session.getTransaction().commit();
+		}catch(Exception e){
+			throw e;
+		}
+
+		System.out.println("Created successfully!");
 	}
 	
 	public void removeContact(String id)
@@ -42,8 +49,7 @@ public class ContactDAO {
 		long l = Long.parseLong(id);
 		contact.setId(l);
 		
-		//long l = Long.parseLong(id);
-		//contact.setId(l);
+		try{
 		//Obtention d’une session
 		Session session =
 		HibernateUtil.getSessionFactory().getCurrentSession();
@@ -53,8 +59,10 @@ public class ContactDAO {
 		session.delete(contact);
 		//committer la transaction
 		session.getTransaction().commit();
-
-		
+		}catch(Exception e){
+			throw e;
+		}
+		System.out.println("Deleted successfully!");		
 	}
 	
 	public void searchContact()
@@ -69,6 +77,7 @@ public class ContactDAO {
 	{
 		System.out.println("Je modifie un contact : "+ id + " " + nom + " " + prenom + " " + mail);
 		
+		try{
 		//Obtention d’une session
 		Session session =
 		HibernateUtil.getSessionFactory().getCurrentSession();
@@ -81,25 +90,29 @@ public class ContactDAO {
 		contact.setNom(nom);
 		contact.setPrenom(prenom);
 		session.update(contact); 
-		
-		//committer la transaction	
 		session.getTransaction().commit();
+		}catch(Exception e){
+			throw e;
+		}
 		System.out.println("Updated successfully!");
 	}
 	
 	public List<Contact> getListOfContacts(){
 		System.out.println("J'affiche les contacts: ");
-		
-		Session session =HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
-		List<Contact> contacts = (List<Contact>) session.createQuery("from Contact").list();
-		for(Contact contact : contacts)
-		{
-			System.out.println("nom " + contact.getNom() + " | prenom " + contact.getPrenom());	
+		try{
+			Session session =HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+	
+			contacts = (List<Contact>) session.createQuery("from Contact").list();
+			for(Contact contact : contacts)
+			{
+				System.out.println("nom " + contact.getNom() + " | prenom " + contact.getPrenom());	
+			}
+			session.getTransaction().commit();	
+		}catch(Exception e){
+			throw e;
 		}
-
-		session.getTransaction().commit();	
+		System.out.println("Displayed successfully!");
 		return contacts;
 	}
 }

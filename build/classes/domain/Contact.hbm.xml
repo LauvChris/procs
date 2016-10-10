@@ -6,6 +6,7 @@
   	 <id name="id" type="long" column="ID_CONTACT" >
    		<generator class="increment"/>
   	 </id>
+<!--   	<version name="version" type="long"/> -->
 	<property name="nom" column="prenom" type="string"/>
 	<property name="prenom" column="nom" type="string"/>
     <property name="mail" column="mail" type="string"/>
